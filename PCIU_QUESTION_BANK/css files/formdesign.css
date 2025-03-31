@@ -1,0 +1,18 @@
+select, input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff5cc;
+}
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff5cc;
+    font-size: 14px;
+    display: block;
+}

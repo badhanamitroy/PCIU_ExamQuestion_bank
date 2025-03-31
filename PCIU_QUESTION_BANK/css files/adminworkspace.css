@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #4b2e83;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #00b7eb;
+}
+
+.header p {
+    margin: 5px 0 0;
+}
+
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.check-button {
+    background-color: #4b2e83;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.check-button:hover {
+    background-color: #3a2266;
+}
+
+.uploads-section {
+    max-width: 90vw;
+    margin: 0 auto;
+    /* padding: 20px; */
+}
+
+.uploads-section h2 {
+    color: #4b2e83;
+    margin-bottom: 20px;
+}
+
+.uploads-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 30%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.card-body {
+    padding: 15px;
+    display: flex;
+    /* border: 2px solid #3a2266; */
+    justify-content: space-around;
+}
+/* .info{
+    /* border: 2px solid #fd4604; *
+
+} */
+
+.question-view {
+    margin-bottom: 15px;
+    /* border: 2px solid #fd04aa; */
+    align-content: center;
+
+}
+
+.view-button {
+    background-color: #00b7eb;
+    color: white;
+    border: none;
+    /* padding: 10px; */
+    height: 70%;
+    width: 110%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.view-button:hover {
+    background-color: #0099cc;
+}
+
+.info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.card-footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.card-footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.approve-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 48%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.approve-button:hover {
+    background-color: #218838;
+}
+
+.decline-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 48%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.decline-button:hover {
+    background-color: #c82333;
+}

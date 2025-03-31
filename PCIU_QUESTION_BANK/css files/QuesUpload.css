@@ -1,0 +1,238 @@
+/* Header styling */
+h2 {
+    margin-top:10px ;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+h2 span {
+    color: #2980b9;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+/* Form container */
+.formContainer {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Form inputs */
+.formInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.row1, .row2, .row3, .row4 {
+    display: flex;
+    gap: 10px;
+    /* flex-wrap: wrap; */
+}
+
+.row1 select[name="Department"]{
+width: 50%;
+}
+
+.row1 select[name="Batch"], 
+.row1 input[name="section"]{
+width: 15%;
+}
+
+.row1 select[name="Shift"]{
+width: 20%;
+}
+
+.row2 select, .row2 input{
+width: 25%;
+}
+
+.row3 input[name="CourseCode"]{
+    width: 25%;
+}
+.row3 input[name="CourseTitle"]{
+    width: 75%;
+}
+
+.row4 input[name="CourseTeacher"]{
+    width: 100%;
+}
+
+/* Style select and input elements */
+select, input[type="text"], input[type="number"] {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: #2980b9;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
+}
+
+/* Placeholder styling */
+input::placeholder {
+    color: #95a5a6;
+}
+
+/* File upload section styling */
+.row5 {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.file-upload {
+    border: 2px dashed #bdc3c7;
+    border-radius: 10px;
+    padding: 25px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    cursor: pointer;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.file-upload:hover {
+    border-color: #2980b9;
+    background: #ecf0f1;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Assuming you're using Font Awesome for the icon */
+.fa-upload {
+    font-size: 2.5rem;
+    color: #7f8c8d;
+    transition: color 0.3s ease;
+}
+
+.file-upload:hover .fa-upload {
+    color: #2980b9;
+}
+
+.upload-text {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.preview-container {
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button[name="addMore"] {
+    background: #e67e22;
+    color: white;
+    margin-top: 20px;
+}
+
+button[name="addMore"]:hover {
+    background: #d35400;
+}
+
+button[name="Submit"] {
+    background: #2980b9;
+    color: white;
+    display: block;
+    margin: 30px auto ;
+    padding: 15px 40px;
+}
+
+
+/* Responsive design */
+/* Improved Responsive Styling */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .formContainer {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .formInputs {
+        gap: 15px;
+    }
+
+    .row1, .row2, .row3, .row4 {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    select, input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .file-upload {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .fa-upload {
+        font-size: 1.8rem;
+    }
+
+    .upload-text {
+        font-size: 0.9rem;
+    }
+
+    button[name="Submit"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,46 @@
+.container {
+    width: 80%;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.header img {
+    width: 80px;
+}
+.search-section {
+    margin: 20px 0;
+}
+.search-section input, 
+.search-section button,
+.search-section select {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.search-section button {
+    background: green;
+    color: white;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff8dc;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background: #337ab7;
+    color: white;
+}
+.eye-icon {
+    font-size: 18px;
+    cursor: pointer;
+}
