@@ -1,40 +1,43 @@
 <?php
 session_start();
-
 include 'connectDB.php';
 
+$error_message = "";
 
 if(isset($_POST['Proceed'])){
+    $PCIUID = trim($_POST['PCIUID']);
+    $StudentEmail = trim($_POST['StudentEmail']);
+    $StudentPhone = trim($_POST['StudentPhone']);
 
-    $USIN = mysqli_real_escape_string($connection, $_POST['USIN']);
-    $PCIUID = mysqli_real_escape_string($connection, $_POST['PCIUID']);
-    $StudentEmail = mysqli_real_escape_string($connection, $_POST['StudentEmail']);
-    $StudentPhone = mysqli_real_escape_string($connection, $_POST['StudentPhone']);    
+    if(!empty($PCIUID) && !empty($StudentEmail) && !empty($StudentPhone)) {
+        // Using prepared statements to prevent SQL injection
+        $query = "SELECT * FROM studentinfo WHERE PCIUID = ? AND StudentEmail = ? AND StudentPhone = ?";
+        $stmt = mysqli_prepare($connection, $query);
+        mysqli_stmt_bind_param($stmt, "sss", $PCIUID, $StudentEmail, $StudentPhone);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-    $query = "SELECT * FROM studentinfo 
-                WHERE PCIUID = '$PCIUID' AND 
-                      StudentEmail = '$StudentEmail' AND 
-                      StudentPhone = '$StudentPhone'";
-    
-    $result = mysqli_query($connection, $query);
-
-    if(mysqli_num_rows($result) > 0){
-         // Fetch user data and start session
-         while ($row = mysqli_fetch_assoc($result)) {
+        if(mysqli_num_rows($result) > 0){
+            // Fetch user data and start session
+            $row = mysqli_fetch_assoc($result);
             $_SESSION['USIN'] = $row['USIN'];
             $_SESSION['Department'] = $row['Department'];
             $_SESSION['StudentName'] = $row['StudentName'];
             $_SESSION['PCIUID'] = $row['PCIUID'];
             $_SESSION['StudentEmail'] = $row['StudentEmail'];
             $_SESSION['Student'] = $row['Student'];
-         }
-    }
-            // Redirect to a dashboard or main page after successful login
+
+            // Redirect to the question upload page
             header("Location: Quesuploadpage.php");
+            exit();
+        } else {
+            $error_message = "Invalid login credentials. Please try again.Register yourself if you're not yet.";
+        }
+    } else {
+        $error_message = "All fields are required!";
+    }
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,6 +77,12 @@ if(isset($_POST['Proceed'])){
             margin-bottom: 20px;
         }
 
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
         button {
             width: 50%;
             background-color: #4CAF50;
@@ -104,36 +113,41 @@ if(isset($_POST['Proceed'])){
     <div class="container">
         <img src="LOGo.png" alt="PCIU">
         <h4>Please fill up this form & Proceed</h4>
+
+        <!-- Display error message if login fails -->
+        <?php if(!empty($error_message)): ?>
+            <div class="error-message"><?php echo $error_message; ?></div>
+        <?php endif; ?>
+
         <form method="post" action="">
-        <!-- <input type="text" name="USIN" placeholder="Enter Your USIN" required> -->
             <input type="text" name="PCIUID" placeholder="Enter Your PCIU ID" required>
             <input type="email" name="StudentEmail" placeholder="Enter Your email" required>
             <input type="tel" name="StudentPhone" placeholder="Enter Your Phone Number" required>
             <button type="submit" name="Proceed">Proceed</button>
         </form>
+
         <p>Not yet registered? <a href="StudentReg.php">Register now</a></p>
     </div>
+
     <a href="index.php">
-    <button style="
-    background-color: #0056b3;
-    color: white;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    height: 50px;
-    width: 50px;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;">
-    <i class="fa-solid fa-house" style="font-size: 18px;"></i>
-</button>
-
+        <button style="
+            background-color: #0056b3;
+            color: white;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            height: 50px;
+            width: 50px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;">
+            <i class="fa-solid fa-house" style="font-size: 18px;"></i>
+        </button>
     </a>
-
 </body>
 </html>
