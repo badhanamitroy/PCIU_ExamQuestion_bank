@@ -98,6 +98,26 @@
             </a>
         </div>
     </div>
+
+    <a href="https://www.youtube.com/watch?v=v3lrB8y6nvc" target="_blank" style="text-decoration: none;">
+    <button style="
+        position:fixed;
+        bottom: 20px;
+        left: 20px;
+        background-color: blueviolet; 
+        color: whitesmoke; 
+        border: none; 
+        padding: 10px 20px; 
+        font-size: 16px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease;
+    ">
+        How to use?
+    </button>
+</a>
+
+
     <footer>
         <h4>Developed with love © <a href="https://www.facebook.com/BadhanAmitRoy.25/" target="_blank">Badhan Roy Amit</a> [CSE 28-Day-A]</h4>
     </footer>
