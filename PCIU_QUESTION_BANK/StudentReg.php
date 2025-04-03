@@ -18,7 +18,8 @@ $queryRun = mysqli_query($connection, $query);
 // Handling success and failure messages
 if ($queryRun) {
     echo "<script type='text/javascript'>
-    alert('You have been registered successfully! Wanna proceed?');  
+    alert('You have been registered successfully! Wanna proceed?'); 
+    window.location.href='login.php';
   </script>";
     }
 }

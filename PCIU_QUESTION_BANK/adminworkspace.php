@@ -13,8 +13,8 @@ $runnewuploads = mysqli_query($connection, $newuploads);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="./css files/adminworkspace.css?v=<?php echo time() ?>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 </head>
 <body>
     <div class="header">
@@ -24,7 +24,10 @@ $runnewuploads = mysqli_query($connection, $newuploads);
 
     <div class="button-container">
         <a href="allquestions.php">
-            <button class="check-button">Check Existing questions</button>
+            <button class="check-button">Check Existing Questions</button>
+        </a>
+        <a href="adminquesupload.php">
+            <button class="check-button">Upload Exam Questions</button>
         </a>
     </div>
 
@@ -35,6 +38,7 @@ $runnewuploads = mysqli_query($connection, $newuploads);
             <?php
             if (mysqli_num_rows($runnewuploads) > 0) {
                 while ($newuploadrow = mysqli_fetch_assoc($runnewuploads)) {
+                    $filePath = "./uploads/" . $newuploadrow['Question']; 
             ?>
 
             <div class="card" id="card-<?php echo $newuploadrow['Qid']; ?>">
@@ -45,7 +49,7 @@ $runnewuploads = mysqli_query($connection, $newuploads);
                 </div>
                 <div class="card-body">
                     <div class="question-view">
-                        <a href="./uploads/<?php echo $newuploadrow['Question']; ?>" target="_blank">
+                        <a href="<?php echo $filePath; ?>" target="_blank">
                             <button class="view-button"><i class="fa-solid fa-eye"></i> <br> View Question</button>
                         </a>
                     </div>
@@ -62,35 +66,38 @@ $runnewuploads = mysqli_query($connection, $newuploads);
                     <p><strong>Uploaded on:</strong> <?php echo $newuploadrow['UploadDate'].' on '. $newuploadrow['UploadTime']; ?></p>
                     <div class="action-buttons">
                         <button class="approve approve-button" onclick="updateStatus(<?php echo $newuploadrow['Qid']; ?>, 'Approved')">Approve</button>
-                        <button class="delete decline-button" onclick="updateStatus(<?php echo $newuploadrow['Qid']; ?>, 'Declined')">Decline</button>
+                        <button class="delete decline-button" onclick="deleteFile(<?php echo $newuploadrow['Qid']; ?>, '<?php echo $filePath; ?>')">Decline & Delete</button>
                     </div>
                 </div>
             </div>
 
-            <?php }} ?>
+            <?php }} else {
+                echo "<div style='text-align: center; width: 100%;'>
+                            <h3>No new uploads found</h3>
+                      </div>";
+            } ?>
         </div>
     </div>
 
     <a href="index.php">
-    <button style="
-    background-color: #0056b3;
-    color: white;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    height: 50px;
-    width: 50px;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;">
-    <i class="fa-solid fa-house" style="font-size: 18px;"></i>
-</button>
-
+        <button style="
+            background-color: #0056b3;
+            color: white;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            height: 50px;
+            width: 50px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;">
+            <i class="fa-solid fa-house" style="font-size: 18px;"></i>
+        </button>
     </a>
 
     <script>
@@ -107,6 +114,23 @@ $runnewuploads = mysqli_query($connection, $newuploads);
                 }
             }
         });
+    }
+
+    function deleteFile(qid, filePath) {
+        if (confirm("Are you sure you want to decline and delete this file?")) {
+            $.ajax({
+                url: "delete_file.php",
+                type: "POST",
+                data: { qid: qid, filePath: filePath },
+                success: function(response) {
+                    if (response.trim() === "deleted") {
+                        $("#card-" + qid).fadeOut("slow"); // Remove card after deletion
+                    } else {
+                        alert("Error deleting file");
+                    }
+                }
+            });
+        }
     }
     </script>
 </body>

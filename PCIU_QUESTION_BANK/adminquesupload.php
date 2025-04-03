@@ -29,22 +29,24 @@ if ($_FILES['fileInput']){
 }
 // file upload handle section
 
-$sql = "INSERT INTO questioninfo(StudentName, PCIUID, Department, Batch, Section, Shift, Module, ModuleTitle, Year, Term, CourseCode, CourseTitle, CourseTeacher, Question)
-        VALUES ('".$_SESSION['StudentName']."', '".$_SESSION['PCIUID']."', '$Department', '$Batch', '$section', '$Shift', '$Module', '$ModuleTitle', '$Year', '$Term', '$CourseCode', '$CourseTitle', '$CourseTeacher', '$path')";
+$sql = "INSERT INTO questioninfo(StudentName, Department, Batch, Section, Shift, Module, ModuleTitle, Year, Term, CourseCode, CourseTitle, CourseTeacher, Question, Status)
+        VALUES ('Admin', '$Department', '$Batch', '$section', '$Shift', '$Module', '$ModuleTitle', '$Year', '$Term', '$CourseCode', '$CourseTitle', '$CourseTeacher', '$path', 'Approved')";
 
 $result = mysqli_query($connection, $sql);
 
-// Handling success and failure messages
 if ($result) {
     echo "<script type='text/javascript'>
         var userChoice = confirm('Your question uploaded successfully! Wanna add more?');
         if (userChoice) {
-            window.location.href = 'Quesuploadpage.php';
+            window.location.href = 'adminquesupload.php';
         } else {
-            window.location.href = 'index.php';
+            window.location.href = 'adminworkspace.php';
         }
     </script>";
-}}
+} else {
+    echo "Error: ". $sql. "<br>". mysqli_error($connection);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,14 +54,22 @@ if ($result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Question</title>
+    <title>Admin Upload</title>
     <link rel="stylesheet" href="./css files/universal.css">
     <link rel="stylesheet" href="./css files/QuesUpload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <h2>Hello <span><?php echo htmlspecialchars($_SESSION['StudentName']); ?></span></h2>
-    <h3>Please fillup the form to upload your questions.</h3>
+    <!-- <h2>Hello <span><?php echo htmlspecialchars($_SESSION['StudentName']); ?></span></h2> -->
+    <div class="header">
+        <br>
+        <h1>Hello Admin</h1>
+        <p>Please fillup the form to upload your questions.</p>
+        <br>
+        <hr>
+        <br>
+    </div>
+    <!-- <h3></h3> -->
 
 
     <form action="" method="post" enctype="multipart/form-data">
@@ -136,8 +146,7 @@ if ($result) {
         </div>
         <button type="submit" name="Submit">Submit</button>
     </form>
-    <a href="index.php">
-    <button style="
+    <a href="adminworkspace.php" style="
     background-color: #0056b3;
     color: white;
     position: fixed;
@@ -152,11 +161,10 @@ if ($result) {
     justify-content: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;">
-    <i class="fa-solid fa-house" style="font-size: 18px;"></i>
-</button>
-
-    </a>
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;">
+    <i class="fa-solid fa-backward" style="font-size: 18px; color: white;"></i>
+</a>
 
     <script>
         const dropArea = document.getElementById('drop-area');

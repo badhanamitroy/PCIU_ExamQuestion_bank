@@ -48,7 +48,12 @@
                 <button type="submit" name="search">Search</button>
             </form>
         </div>
+        <?php
+        if(isset($_POST['search'])){
+        ?>
     <!-- Search engine -->
+     <h3><?php echo $_POST['CourseTitle'];?></h3>
+     <h4><?php echo $_POST['CourseCode'];}?></h4>
     
         <table>
             <tr>
@@ -89,13 +94,18 @@
                         <a href="<?php echo $upload_path; ?>" download="<?php echo $Quesrow['Question']; ?>">
                             <button type="button" style="background: #337ab7; color: aliceblue;">Download</button>
                         </a>
-                    <?php } else { ?>
-                        No file
-                    <?php } ?>
+                    <?php }  ?>
+
                 </td>
 
             </tr>
-            <?php }}}?>
+            <?php }
+            } else {
+            // echo '<td colspan:6>Sorry !! No Questions Found. Please contact the Admin or The CR of the Batch.</td>'; 
+            echo '<tr><td colspan="6" style="text-align: center;">Sorry !! No Questions Found. Please contact the Admin or The CR of the Batch.</td></tr>';
+
+             }}
+            ?>
         </table>
     </div>
     <a href="index.php">
