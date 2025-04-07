@@ -5,13 +5,17 @@ if (isset($_POST['register'])) {
     // $ManagerId = mysqli_real_escape_string($connection, $_POST['ManagerId']);
 $StudentName = mysqli_real_escape_string($connection, $_POST['StudentName']);
 $Department = mysqli_real_escape_string($connection, $_POST['Department']);
+$batch = mysqli_real_escape_string($connection, $_POST['Batch']);
+$Shift = mysqli_real_escape_string($connection, $_POST['Shift']);
+$Section = mysqli_real_escape_string($connection, $_POST['Section']);
+$Position = mysqli_real_escape_string($connection, $_POST['Position']);
 $USIN = mysqli_real_escape_string($connection, $_POST['USIN']);
 $PCIUID = mysqli_real_escape_string($connection, $_POST['PCIUID']);
 $StudentEmail = mysqli_real_escape_string($connection, $_POST['StudentEmail']);
 $StudentPhone = mysqli_real_escape_string($connection, $_POST['StudentPhone']);
 
-$query = "INSERT INTO studentinfo (StudentName, Department, USIN, PCIUID, StudentEmail, StudentPhone) 
-VALUES ('$StudentName', '$Department', '$USIN', '$PCIUID', '$StudentEmail', '$StudentPhone')";
+$query = "INSERT INTO studentinfo (StudentName, Department, Batch, Shift, Section,Position, USIN, PCIUID, StudentEmail, StudentPhone) 
+VALUES ('$StudentName', '$Department', '$batch','$Shift', '$Section','$Position', '$USIN', '$PCIUID', '$StudentEmail', 88+'$StudentPhone')";
 
 $queryRun = mysqli_query($connection, $query);
 
@@ -36,70 +40,98 @@ if ($queryRun) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #fcf9e3; 
+    }
 
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            /* width: 350px; */
-            margin-top:10% ;
-        }
+    .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        max-width: 460px; /* Added max-width for better control */
+        margin-top: 10vh;
+        /* margin-bottom: 10vh; */
+    }
 
-        .container img {
-            width: 80px;
-            margin-bottom: 10px;
-        }
+    .container img {
+        width: 80px;
+        margin-bottom: 10px;
+    }
 
-        h4 {
-            font-size: 16px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
+    h4 {
+        font-size: 16px;
+        margin-bottom: 20px;
+        text-align: left;
+    }
 
-        input, select {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff5cc;
-            font-size: 14px;
-            display: block;
-        }
+    /* Form elements container */
+    form {
+        width: 100%;
+    }
 
-        button {
-            width: 50%;
-            background-color: #4CAF50;
-            padding: 10px;
-        }
+    /* Base styles for inputs and selects */
+    input, select {
+        width: 100%; /* Full width by default */
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff5cc;
+        font-size: 14px;
+        box-sizing: border-box; /* Important: includes padding in width */
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    /* Container for the four-column layout */
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px; /* Adds consistent spacing between elements */
+        margin: 8px 0;
+    }
 
-        p {
-            margin-top: 10px;
-            font-size: 14px;
-        }
+    /* Styles for elements in the four-column layout */
+    .form-row input,
+    .form-row select {
+        width: 25%; /* Equal width for all four elements */
+        margin: 0; /* Remove default margin to prevent overflow */
+    }
 
-        a {
-            color: blue;
-            font-weight: bold;
-            text-decoration: none;
-        }
+    button {
+        width: 50%;
+        background-color: #4CAF50;
+        padding: 10px;
+        border: none; /* Added for consistency */
+        border-radius: 5px; /* Match other elements */
+        cursor: pointer;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    button:hover {
+        background-color: #45a049;
+    }
+
+    p {
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    a {
+        color: blue;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
     <div class="container">
@@ -119,10 +151,24 @@ if ($queryRun) {
                 <option>Business Administration</option>
                 <option>Journalism and Media Studies</option>
             </select>
+            <div class="form-row">
+                <input type="text" name="Batch" placeholder="Batch" required>
+                <select name="Shift" required>
+                    <option value="" disabled selected>Shift</option>
+                    <option>Day</option>
+                    <option>Evening</option>
+                </select>
+                <input type="text" name="Section" placeholder="Section" required>
+                <select name="Position" required> 
+                    <option value="" disabled selected>Position</option>
+                    <option>CR</option>
+                    <option>General</option>
+                </select>
+            </div>
             <input type="text" name="USIN" placeholder="Enter Your USIN" required>
             <input type="text" name="PCIUID" placeholder="Enter Your PCIU ID" required>
             <input type="email" name="StudentEmail" placeholder="Enter Your email" required>
-            <input type="tel" name="StudentPhone" placeholder="Enter Your Phone Number" required>
+            <input type="tel" name="StudentPhone" placeholder="Enter Your Whatsapp Number" required>
             <button type="submit" name="register">Register</button>
         </form>
     </div>

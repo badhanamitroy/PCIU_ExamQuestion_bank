@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 01:31 AM
+-- Generation Time: Apr 06, 2025 at 11:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `pciu_question_bank`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mgsadmin`
+--
+
+CREATE TABLE `mgsadmin` (
+  `mgid` int(11) NOT NULL,
+  `message` text DEFAULT NULL,
+  `Status` varchar(20) NOT NULL,
+  `submitdate` date DEFAULT current_timestamp(),
+  `submittime` time DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -53,14 +67,11 @@ CREATE TABLE `questioninfo` (
 --
 
 INSERT INTO `questioninfo` (`Qid`, `StudentName`, `PCIUID`, `Department`, `Batch`, `Section`, `Shift`, `Module`, `ModuleTitle`, `Year`, `Term`, `CourseCode`, `CourseTitle`, `CourseTeacher`, `Question`, `UploadDate`, `UploadTime`, `Status`) VALUES
-(6, 'Badhan Roy', 'CSE 028 075', 'Natural Science', '28', 'A', 'Day', 'Trimester', 'Fall', 2022, 'Final term', 'PHY 111', 'Physics', 'Abadat Hossain', 'AP অধ্যায় ১ জীববিজ্ঞানের ধারণা MCQ.pdf', '2025-03-30', '17:15:12', 'Deleted'),
-(8, 'Badhan Roy', 'CSE 028 075', 'English', '28', 'A', 'Day', 'Trimester', 'Summer', 2022, 'Midterm', 'ENG 111', 'English', 'Subrina Tisha', '486410478_1867810604042002_7658514560831852957_n.jpg', '2025-03-30', '17:50:00', 'Approved'),
-(9, 'Badhan Roy', 'CSE 028 075', 'English', '28', 'A', 'Day', 'Trimester', 'Summer', 2022, 'Final term', 'ENG 111', 'English', 'Subrina Tisha', '486410478_1867810604042002_7658514560831852957_n.jpg', '2025-03-30', '17:50:26', 'Approved'),
-(10, 'Payel Chowdhury', 'CSE 0280758', 'Computer Science and Engineering', '28', 'A', 'Day', 'Trimester', 'Spring', 2023, 'Midterm', 'CSE 223', 'Data Structure', 'Showmitra Das', 'Anannya.pdf', '2025-03-31', '15:06:00', 'Declined'),
 (11, 'Badhan Roy', 'CSE 028 075', 'Computer Science and Engineering', '28', 'A', 'Day', 'Trimester', 'Fall', 2024, 'Midterm', 'CSE 435', 'Data Communication', 'Maherab Hossain', 'DC Fall 2024.jpg', '2025-04-01', '01:15:29', 'Approved'),
 (12, 'Badhan Roy', 'CSE 028 075', 'Computer Science and Engineering', '27', 'A', 'Day', 'Trimester', 'Summer', 2024, 'Midterm', 'CSE 435', 'Data Communication', 'Subhashis Roy Bhowmik', 'DC Summer 2024.jpg', '2025-04-01', '01:17:27', 'Approved'),
 (13, 'Badhan Roy', 'CSE 028 07571', 'Computer Science and Engineering', '28', 'A', 'Day', 'Trimester', 'Fall', 2024, 'Final Term', 'CSE 321', 'Software Engineering', 'Shafayet Nur', 'SE Fall 2024.jpg', '2025-04-01', '04:47:13', 'Approved'),
-(14, 'Badhan Roy', 'CSE 028 07571', 'Computer Science and Engineering', '28', 'A', 'Day', 'Trimester', 'Spring', 2025, 'Midterm', 'CSE 317', 'Theory of Computing', 'Zarin Rafah Chowdhury', 'TOC mid 28 A.pdf', '2025-04-01', '05:11:44', 'Approved');
+(14, 'Badhan Roy', 'CSE 028 07571', 'Computer Science and Engineering', '28', 'A', 'Day', 'Trimester', 'Spring', 2025, 'Midterm', 'CSE 317', 'Theory of Computing', 'Zarin Rafah Chowdhury', 'TOC mid 28 A.pdf', '2025-04-01', '05:11:44', 'Approved'),
+(29, 'Badhan Roy', 'CSE 028 07571', 'Computer Science and Engineering', '28', 'A', 'Day', 'Trimester', 'Spring', 2025, 'Midterm', 'CSE 323', 'Computer Networks', 'Mrs. Taofica Amrine', 'CN25.jpg', '2025-04-07', '02:56:43', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -71,6 +82,10 @@ INSERT INTO `questioninfo` (`Qid`, `StudentName`, `PCIUID`, `Department`, `Batch
 CREATE TABLE `studentinfo` (
   `StudentName` varchar(255) DEFAULT NULL,
   `Department` varchar(255) DEFAULT NULL,
+  `Batch` varchar(10) NOT NULL,
+  `Shift` varchar(20) NOT NULL,
+  `Section` varchar(5) NOT NULL,
+  `Position` varchar(20) NOT NULL,
   `USIN` varchar(255) NOT NULL,
   `PCIUID` varchar(255) DEFAULT NULL,
   `StudentEmail` varchar(255) DEFAULT NULL,
@@ -81,14 +96,21 @@ CREATE TABLE `studentinfo` (
 -- Dumping data for table `studentinfo`
 --
 
-INSERT INTO `studentinfo` (`StudentName`, `Department`, `USIN`, `PCIUID`, `StudentEmail`, `StudentPhone`) VALUES
-('Payel Chowdhury', 'Computer Science and Engineering', '0662220005101048', 'CSE 02807580', 'payelchy@gmail.com', '01720503515'),
-('Badhan Roy', 'Computer Science and Engineering', '12345678', 'CSE 028 07571', 'badhan@gmail.com', '01625683644'),
-('Amit Roy', 'Law', '74123333369', 'LLB 028 07896', 'amitroy@gmail.com', '0147852369');
+INSERT INTO `studentinfo` (`StudentName`, `Department`, `Batch`, `Shift`, `Section`, `Position`, `USIN`, `PCIUID`, `StudentEmail`, `StudentPhone`) VALUES
+('Mr. X', 'Civil Engineering', '', '', '', '', '000011112222', 'CEN 00280754', 'mrx@gmail.com', '01478523698'),
+('Jarin Tasnin Anika', 'Computer Science and Engineering', '28', 'Day', 'A', 'CR', '0000111122223333', 'CSE 02807555', 'tasnin@gmail.com', '8801825835465'),
+('Payel Chy', 'Computer Science and Engineering', '28', 'Day', 'A', 'General', '0001112223334445555', 'CSE 02807580', 'payel@gmail.com', '01678945623'),
+('Badhan Roy', 'Computer Science and Engineering', '', '', '', '', '12345678', 'CSE 028 07571', 'badhan@gmail.com', '01625683644');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `mgsadmin`
+--
+ALTER TABLE `mgsadmin`
+  ADD PRIMARY KEY (`mgid`);
 
 --
 -- Indexes for table `questioninfo`
@@ -108,10 +130,16 @@ ALTER TABLE `studentinfo`
 --
 
 --
+-- AUTO_INCREMENT for table `mgsadmin`
+--
+ALTER TABLE `mgsadmin`
+  MODIFY `mgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT for table `questioninfo`
 --
 ALTER TABLE `questioninfo`
-  MODIFY `Qid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Qid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

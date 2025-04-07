@@ -99,6 +99,48 @@ $runnewuploads = mysqli_query($connection, $newuploads);
             <i class="fa-solid fa-house" style="font-size: 18px;"></i>
         </button>
     </a>
+<?php 
+$mgsCountQuery = "SELECT COUNT(*) as unread FROM mgsadmin WHERE Status != 'Read'";
+$runmgsCount = mysqli_query($connection, $mgsCountQuery);
+
+if (mysqli_num_rows($runmgsCount)>0){
+    while ($rowCount = mysqli_fetch_assoc($runmgsCount)){
+?>
+    <a href="adminmgs.php">
+        <h1 style="position: fixed;
+            bottom: 32px;
+            right: 20px;
+            z-index: 1;
+            color: red;
+            font-family : Arial;">
+            <?php 
+            if($rowCount['unread']!=0){
+                echo $rowCount['unread']; 
+            }
+            ?>
+            </h1>
+<?php }
+} ?>
+
+        <button style="
+            background-color: #0056b3;
+            color: white;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            height: 50px;
+            width: 50px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;">
+            <i class="fa-solid fa-inbox" style="font-size: 18px;"></i>
+        </button>
+    </a>
 
     <script>
     function updateStatus(qid, status) {

@@ -1,3 +1,19 @@
+<?php
+        include 'connectDB.php'; 
+
+        if(isset($_POST['send'])){
+        $message = mysqli_real_escape_string($connection, $_POST['message']);
+        $send_message = "INSERT INTO mgsadmin (message) VALUES ('$message')";
+        $run_message = mysqli_query($connection, $send_message);
+        if($run_message){
+            echo '<script>alert("Message sent successfully!")</script>';
+        } else {
+            echo '<script>alert("Failed to send message. Try again!")</script>';
+        }
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +82,6 @@
             </tr>
         <?php
         // running Search query
-        include 'connectDB.php'; 
 
         //fetching search results
         if(isset($_POST['search'])){
@@ -101,8 +116,50 @@
             </tr>
             <?php }
             } else {
-            // echo '<td colspan:6>Sorry !! No Questions Found. Please contact the Admin or The CR of the Batch.</td>'; 
-            echo '<tr><td colspan="6" style="text-align: center;">Sorry !! No Questions Found. Please contact the Admin or The CR of the Batch.</td></tr>';
+            echo '<tr>
+                    <td colspan="6" style="text-align: center;">
+                        Sorry !! No Questions Found. Please contact the Admin or The CR of the Batch.
+                        <br>
+                        <form method="post" action="">
+                        <input type="text" name="message" style="width:50vw; padding: 10px;margin: 5px; border-radius: 10px; border: 1px solid #ccc;" placeholder="Text Admin: Department, Course Code, Course Title, Batch, Term of your desired Question"></input>
+                        <button type="submit" name="send" style="background: green;color: white; cursor: pointer;"><i class="fas fa-arrow-right-from-bracket"></i></button> 
+                        </form>                
+                    </td>
+                  </tr>';
+            
+                  // Fetching CRinformation
+                  $CRinfo = "SELECT * FROM studentinfo WHERE Department = '$Department' AND Position = 'CR'";
+                  $runCRinfo = mysqli_query($connection, $CRinfo);
+                  ?>
+                    <table>
+                        <tr>
+                            <td colspan="6" style="text-align: center;">
+                                <h3 style="text-align: center;">CR Information</h3>
+                            </td>
+                            <tr>
+                                <th>Batch</th>
+                                <th>CR Name</th>
+                                <th>Whatsapp</th>
+                            </tr>
+                        </tr>
+                  <?php
+                  if (mysqli_num_rows($runCRinfo) > 0) {
+                    while ($CRrow = mysqli_fetch_assoc($runCRinfo)) {
+                        echo '  <tr>
+                                    <td>'. $CRrow['Batch'].''. $CRrow['Section'].'</td>
+                                    <td>'. $CRrow['StudentName'].'</td>
+                                    <td> 
+                                        <a href="https://wa.me/'.$CRrow['StudentPhone'].'" target="_blank">
+                                            '. $CRrow['StudentPhone'].'
+                                        </a>
+                                    </td>
+                                </tr>';
+                    }
+                  }else{
+                    echo '<tr>
+                            <td colspan="6" style="text-align: center;">No CR Information found.</td>
+                        </tr>';
+                  }
 
              }}
             ?>
